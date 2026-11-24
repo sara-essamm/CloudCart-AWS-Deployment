@@ -1,0 +1,168 @@
+/* =====================================================================
+   CloudCart styles
+   White background, dark blue navigation bar, blue buttons.
+   Bootstrap 5 does the layout; this file only adds our colours and details.
+   ===================================================================== */
+
+:root {
+    --cc-navy: #0b2447;        /* navigation bar + footer */
+    --cc-blue: #1a5fd0;        /* buttons, links, prices */
+    --cc-blue-dark: #134aa5;   /* button hover */
+    --cc-border: #e3e8ef;
+    --cc-text: #1f2937;
+    --cc-muted-bg: #f5f8fc;
+}
+
+body {
+    background-color: #ffffff;
+    color: var(--cc-text);
+}
+
+a {
+    color: var(--cc-blue);
+}
+
+/* ---------- Navigation bar ---------- */
+.cc-navbar {
+    background-color: var(--cc-navy);
+}
+
+.cc-navbar .nav-link {
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+}
+
+/* ---------- Blue buttons (override Bootstrap's primary colours) ---------- */
+.btn-primary {
+    --bs-btn-bg: var(--cc-blue);
+    --bs-btn-border-color: var(--cc-blue);
+    --bs-btn-hover-bg: var(--cc-blue-dark);
+    --bs-btn-hover-border-color: var(--cc-blue-dark);
+    --bs-btn-active-bg: var(--cc-blue-dark);
+    --bs-btn-active-border-color: var(--cc-blue-dark);
+    --bs-btn-disabled-bg: var(--cc-blue);
+    --bs-btn-disabled-border-color: var(--cc-blue);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--cc-blue);
+    --bs-btn-border-color: var(--cc-blue);
+    --bs-btn-hover-bg: var(--cc-blue);
+    --bs-btn-hover-border-color: var(--cc-blue);
+    --bs-btn-active-bg: var(--cc-blue-dark);
+    --bs-btn-active-border-color: var(--cc-blue-dark);
+    --bs-btn-disabled-color: var(--cc-blue);
+    --bs-btn-disabled-border-color: var(--cc-blue);
+}
+
+/* ---------- Hero banner on the home page ---------- */
+.hero {
+    background-color: var(--cc-muted-bg);
+    border-bottom: 1px solid var(--cc-border);
+    padding: 3.5rem 0;
+}
+
+.hero h1 {
+    color: var(--cc-navy);
+}
+
+.hero .btn-light {
+    background-color: var(--cc-blue);
+    border-color: var(--cc-blue);
+    color: #ffffff;
+}
+
+.hero .btn-light:hover {
+    background-color: var(--cc-blue-dark);
+    border-color: var(--cc-blue-dark);
+    color: #ffffff;
+}
+
+.section-title {
+    color: var(--cc-navy);
+    font-weight: 700;
+}
+
+/* ---------- Product cards ---------- */
+.product-card {
+    border: 1px solid var(--cc-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.product-img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background-color: var(--cc-muted-bg);
+}
+
+.product-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* Show at most 3 lines of the description so all cards stay the same height */
+.product-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.price {
+    color: var(--cc-blue);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.search-form {
+    min-width: 280px;
+}
+
+/* ---------- Forms (login, register, checkout, admin) ---------- */
+.form-card {
+    border: 1px solid var(--cc-border);
+    border-radius: 0.75rem;
+}
+
+.form-control:focus {
+    border-color: var(--cc-blue);
+    box-shadow: 0 0 0 0.2rem rgba(26, 95, 208, 0.2);
+}
+
+/* ---------- Cart + admin tables ---------- */
+.cart-thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    background-color: var(--cc-muted-bg);
+}
+
+.qty-btn {
+    width: 2rem;
+    line-height: 1.2;
+}
+
+.qty-number {
+    min-width: 1.5rem;
+    text-align: center;
+}
+
+/* ---------- Footer ---------- */
+.cc-footer {
+    background-color: var(--cc-navy);
+    color: #cdd9ee;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 575.98px) {
+    .hero {
+        padding: 2.25rem 0;
+    }
+
+    .search-form {
+        min-width: 0;
+        width: 100%;
+    }
+}
