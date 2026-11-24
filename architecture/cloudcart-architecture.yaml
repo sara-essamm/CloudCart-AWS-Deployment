@@ -1,0 +1,96 @@
+
+project:
+  name: CloudCart
+  type: AWS E-commerce Application
+  region: eu-north-1
+  status: completed
+  note: "Infrastructure was deleted after testing to avoid ongoing AWS costs."
+
+network:
+  vpc:
+    name: CloudCart-VPC
+    cidr: 10.20.0.0/16
+
+  subnets:
+    public:
+      - Public-A
+      - Public-B
+    private_application:
+      - Private-App-A
+      - Private-App-B
+    private_database:
+      - Private-Data-A
+      - Private-Data-B
+
+  components:
+    - Internet Gateway
+    - NAT Gateway
+    - Public Route Table
+    - Private Application Route Table
+    - Private Database Route Table
+
+security:
+  security_groups:
+    - name: ALB-SG
+      purpose: Allow web traffic to the Application Load Balancer
+    - name: EC2-SG
+      purpose: Allow application traffic from the Load Balancer
+    - name: DB-SG
+      purpose: Allow database traffic from application servers
+
+compute:
+  service: Amazon EC2
+  instances: 2
+  operating_system: Amazon Linux
+  web_server: Apache
+  application_language: PHP
+  placement: Private-App-A and Private-App-B
+  public_ip: false
+  management: AWS Systems Manager Session Manager
+
+load_balancing:
+  service: Application Load Balancer
+  scheme: internet-facing
+  target_group:
+    protocol: HTTP
+    port: 80
+    targets: 2
+    health_check: enabled
+
+database:
+  service: Amazon RDS
+  engine: MySQL
+  placement: Private-Data subnets
+  accessibility: private
+
+storage:
+  service: Amazon S3
+  purpose: Object storage and file uploads
+
+serverless:
+  service: AWS Lambda
+  trigger: S3 object upload event
+  action: Send email notification
+  notification_method: Amazon SNS
+
+application:
+  name: CloudCart
+  technology:
+    - PHP
+    - MySQL
+    - HTML
+    - CSS
+    - JavaScript
+
+architecture_flow:
+  - Internet
+  - Application Load Balancer
+  - Private EC2 Instances
+  - Private RDS Database
+
+security_features:
+  - Private EC2 instances without public IP addresses
+  - Private database subnets
+  - Security groups controlling traffic
+  - Systems Manager Session Manager for EC2 access
+  - Environment variables for application configuration
