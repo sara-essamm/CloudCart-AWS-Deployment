@@ -1,7 +1,7 @@
 # CloudCart (PHP version)
 
 A simple e-commerce website built with **plain PHP 8**, **MySQL (PDO)**, HTML, CSS, JavaScript and Bootstrap 5.
-Built to run locally first, and to be deployed later on AWS (EC2 + RDS + Application Load Balancer, S3 for images).
+Built with PHP 8 and MySQL, tested locally and deployed successfully on AWS using EC2, RDS, an Application Load Balancer, and S3. 
 No framework and no Composer packages are needed.
 
 ## Features
@@ -108,7 +108,7 @@ so nothing in the code has to change for AWS.
 | **Two EC2 instances** | Install PHP + a web server, copy the project to both servers and use the same `.env` database settings. PHP normally keeps sessions in files on one server, which would log users out when the load balancer switches servers. CloudCart stores sessions in the MySQL `sessions` table instead, so **no sticky sessions are needed**. |
 | **Application Load Balancer** | Set the target group health check path to `/health.php` (`/health.php?db=1` also tests the database). Set `BEHIND_PROXY=true` so the session cookie is marked secure when the ALB serves HTTPS. Set `APP_DEBUG=false`. |
 | **Web server** | Point the document root at the `public` folder. Example for Nginx + PHP-FPM: `root /var/www/cloudcart/public; index index.php; location ~ \.php$ { include fastcgi_params; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; fastcgi_pass unix:/run/php/php-fpm.sock; }`. For Apache: `DocumentRoot /var/www/cloudcart/public`. Keep `.env` and `src/` **outside** the document root (they are, by default). |
-| **S3 for images** | A product's `image_url` can already be a full URL. Upload the image to S3, then paste its URL in the Admin form (the objects must be publicly readable, e.g. via CloudFront or a bucket policy). No code change needed. |
+| **S3 for images** | A product's `image_url` can already be a full URL. Upload the image to S3, then paste its URL in the Admin form (Store product images in S3 and serve them through CloudFront using Origin Access Control (OAC), keeping the S3 bucket private. Public access can be configured when appropriate, but is not required when using CloudFront OAC.). No code change needed. |
 
 ## Notes
 - Prices are shown in `$`. Change the `money()` function in `src/functions.php` to use another currency symbol.
